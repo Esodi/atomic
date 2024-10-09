@@ -1,0 +1,140 @@
+/* Custom styles for Atomic platform */
+
+/* General styles */
+body {
+    padding-top: 76px;
+}
+
+/* Header styles */
+.navbar .logo {
+    margin-right: 10px;
+}
+
+/* Hero section styles */
+.hero {
+    margin-top: -76px;
+    position: relative;
+}
+
+.carousel-item {
+    height: 600px;
+}
+
+.carousel-item img {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+}
+
+.carousel-item::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+.carousel-caption {
+    bottom: 50%;
+    transform: translateY(50%);
+    z-index: 2;
+    text-align: center;
+    left: 10%;
+    right: 10%;
+}
+
+.carousel-indicators {
+    z-index: 3;
+}
+
+.carousel-control-prev, .carousel-control-next {
+    z-index: 3;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .carousel-item {
+        height: 400px;
+    }
+    
+    .carousel-caption h1 {
+        font-size: 2rem;
+    }
+    
+    .carousel-caption .lead {
+        font-size: 1rem;
+    }
+    
+    .carousel-caption .btn {
+        margin-top: 10px;
+    }
+}
+/* Features section styles */
+.feature-card {
+    text-align: center;
+    padding: 20px;
+}
+
+.feature-card i {
+    font-size: 2.5rem;
+    color: #007bff;
+    margin-bottom: 15px;
+}
+
+/* Competition card styles */
+.card {
+    transition: transform 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+/* Footer styles */
+.footer {
+    color: #fff;
+}
+
+.footer a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.footer a:hover {
+    color: #007bff;
+}
+
+.social-icons a {
+    font-size: 1.5rem;
+    margin-right: 15px;
+}
+
+.logo-footer {
+    margin-top: 20px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .hero {
+        text-align: center;
+    }
+    
+    .feature-card {
+        margin-bottom: 30px;
+    }
+}
+
+/*improvements*/
+.deco {
+    text-decoration: none;
+}
+
+.deco-1 {
+    color: #fff;
+}
+.deco-2 {
+    color: black;
+}

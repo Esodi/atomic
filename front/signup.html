@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Atomic Platform</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+    <link href="signup.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header (same as homepage, but you might want to simplify it for the signup page) -->
+    <header class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="/api/placeholder/40/40" alt="Atomic Logo" class="logo">
+                Atomic
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Login</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Signup Section -->
+    <main class="signup-container">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6 col-md-8">
+                    <div class="signup-card">
+                        <h1 class="text-center mb-4">Join Atomic</h1>
+                        
+                        <!-- Social Signup Options -->
+                        <div class="social-signup mb-4">
+                            <button class="btn btn-outline-primary w-100 mb-3">
+                                <i class="fab fa-google"></i> Sign up with Google
+                            </button>
+                            <button class="btn btn-outline-primary w-100">
+                                <i class="fab fa-github"></i> Sign up with GitHub
+                            </button>
+                        </div>
+                        
+                        <div class="divider">
+                            <span>or</span>
+                        </div>
+
+                        <!-- Signup Form -->
+                        <form id="signupForm" class="needs-validation" novalidate>
+                            <div class="mb-3">
+                                <label for="fullName" class="form-label">Full Name</label>
+                                <input type="text" class="form-control" id="fullName" required>
+                                <div class="invalid-feedback">
+                                    Please enter your full name.
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email Address</label>
+                                <input type="email" class="form-control" id="email" required>
+                                <div class="invalid-feedback">
+                                    Please enter a valid email address.
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="username" class="form-label">Username</label>
+                                <input type="text" class="form-control" id="username" required>
+                                <div class="invalid-feedback">
+                                    Please choose a username.
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password</label>
+                                <div class="input-group">
+                                    <input type="password" class="form-control" id="password" required>
+                                    <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                                        <i class="far fa-eye"></i>
+                                    </button>
+                                </div>
+                                <div class="password-strength mt-2" id="passwordStrength">
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" style="width: 0%"></div>
+                                    </div>
+                                    <small class="form-text text-muted">Password strength: <span id="strengthText">Weak</span></small>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="interests" class="form-label">Interests</label>
+                                <select class="form-select" id="interests" multiple>
+                                    <option value="programming">Programming</option>
+                                    <option value="design">Design</option>
+                                    <option value="writing">Writing</option>
+                                    <option value="data-science">Data Science</option>
+                                </select>
+                            </div>
+                            
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="terms" required>
+                                <label class="form-check-label" for="terms">
+                                    I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
+                                </label>
+                                <div class="invalid-feedback">
+                                    You must agree to the terms to continue.
+                                </div>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary w-100">Create Account</button>
+                        </form>
+                        
+                        <p class="text-center mt-4">
+                            Already have an account? <a href="#">Log in</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer (simplified version of the homepage footer) -->
+    <footer class="footer bg-dark text-light py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p>&copy; 2024 Atomic. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="#" class="text-light me-3">Privacy Policy</a>
+                    <a href="#" class="text-light me-3">Terms of Service</a>
+                    <a href="#" class="text-light">Contact</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Form validation
+            const form = document.getElementById('signupForm');
+            form.addEventListener('submit', function(event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            });
+
+            // Password toggle
+            const togglePassword = document.getElementById('togglePassword');
+            const password = document.getElementById('password');
+            togglePassword.addEventListener('click', function() {
+                const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                password.setAttribute('type', type);
+                this.querySelector('i').classList.toggle('fa-eye');
+                this.querySelector('i').classList.toggle('fa-eye-slash');
+            });
+
+            // Password strength meter
+            const strengthProgress = document.querySelector('.progress-bar');
+            const strengthText = document.getElementById('strengthText');
+            password.addEventListener('input', function() {
+                const strength = calculatePasswordStrength(this.value);
+                updatePasswordStrength(strength);
+            });
+
+            function calculatePasswordStrength(password) {
+                let strength = 0;
+                if (password.length >= 8) strength += 25;
+                if (password.match(/[A-Z]/)) strength += 25;
+                if (password.match(/[0-9]/)) strength += 25;
+                if (password.match(/[^A-Za-z0-9]/)) strength += 25;
+                return strength;
+            }
+
+            function updatePasswordStrength(strength) {
+                strengthProgress.style.width = strength + '%';
+                if (strength < 25) {
+                    strengthText.textContent = 'Weak';
+                    strengthProgress.className = 'progress-bar bg-danger';
+                } else if (strength < 50) {
+                    strengthText.textContent = 'Fair';
+                    strengthProgress.className = 'progress-bar bg-warning';
+                } else if (strength < 75) {
+                    strengthText.textContent = 'Good';
+                    strengthProgress.className = 'progress-bar bg-info';
+                } else {
+                    strengthText.textContent = 'Strong';
+                    strengthProgress.className = 'progress-bar bg-success';
+                }
+            }
+        });
+    </script>
+</body>
+</html>

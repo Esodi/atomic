@@ -1,0 +1,116 @@
+/* competitions.css */
+
+/* Competition Hero Section */
+.competition-hero {
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/api/placeholder/1920/300');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 60px 0;
+    margin-top: 76px;
+    text-align: center;
+}
+
+/* Main Content Styles */
+.competition-main {
+    padding: 40px 0;
+    background-color: #f5f5f5;
+}
+
+/* Filters Card Styles */
+.filters-card {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.range-slider {
+    position: relative;
+}
+
+.range-value {
+    position: absolute;
+    right: 0;
+    top: -25px;
+    font-weight: bold;
+}
+
+/* Competition Grid Styles */
+.competition-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.competition-card {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.competition-card:hover {
+    transform: translateY(-5px);
+}
+
+.competition-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.competition-content {
+    padding: 20px;
+}
+
+.competition-tags {
+    margin: 10px 0;
+}
+
+.competition-tags .badge {
+    margin-right: 5px;
+}
+
+.competition-details {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin: 15px 0;
+    font-size: 0.9rem;
+}
+
+.competition-details div {
+    display: flex;
+    align-items: center;
+}
+
+.competition-details i {
+    margin-right: 5px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+    .filters-card {
+        margin-bottom: 20px;
+    }
+    
+    .competition-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .competition-details {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .competition-hero {
+        padding: 40px 0;
+    }
+    
+    .competition-hero h1 {
+        font-size: 2rem;
+    }
+}

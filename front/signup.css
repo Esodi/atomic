@@ -1,0 +1,117 @@
+/* signup.css */
+
+body {
+    background-color: #f5f5f5;
+}
+
+.signup-container {
+    padding: 100px 0 40px;
+}
+
+.signup-card {
+    background: white;
+    border-radius: 10px;
+    padding: 40px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Social Signup Buttons */
+.social-signup .btn {
+    position: relative;
+    padding-left: 50px;
+    text-align: left;
+    font-weight: 500;
+}
+
+.social-signup .btn i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+}
+
+/* Divider Styles */
+.divider {
+    text-align: center;
+    margin: 20px 0;
+    position: relative;
+}
+
+.divider::before,
+.divider::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 45%;
+    height: 1px;
+    background-color: #dee2e6;
+}
+
+.divider::before {
+    left: 0;
+}
+
+.divider::after {
+    right: 0;
+}
+
+.divider span {
+    background-color: white;
+    padding: 0 10px;
+    color: #6c757d;
+    text-transform: uppercase;
+    font-size: 12px;
+}
+
+/* Form Styles */
+.form-label {
+    font-weight: 500;
+}
+
+.form-control:focus {
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.15);
+}
+
+/* Password Strength Meter */
+.password-strength .progress {
+    height: 5px;
+    margin-top: 5px;
+}
+
+/* Custom Select Styling */
+.form-select[multiple] {
+    height: auto;
+    padding: 10px;
+}
+
+.form-select[multiple] option {
+    padding: 5px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .signup-card {
+        padding: 20px;
+    }
+    
+    .signup-container {
+        padding: 80px 0 20px;
+    }
+}
+
+/* Animation for validation feedback */
+.invalid-feedback {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

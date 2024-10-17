@@ -36,7 +36,7 @@ Atomic Competitions is a web application that allows users to create, join, and 
 
     ```bash
     git clone https://github.com/esodi/atomic.git
-    cd atomic-competitions
+    cd atomic
     ```
 
 2. **Create a virtual environment:**

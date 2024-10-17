@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atomic - Online Competitions</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='dash.css') }}">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script src="scripts.js" defer></script>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="#">Atomic</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a class="nav-link" href="dashboard.html">Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="competitions.html">Competitions</a></li>
+                    <li class="nav-item"><a class="nav-link" href="profile.html">Profile</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/view_submissions/{{ competitions.id }}">Leaderboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="wallet.html">Wallet</a></li>
+                    <li class="nav-item"><a class="nav-link" href="settings.html">Settings</a></li>
+                    <li class="nav-item">
+                        <button class="btn btn-outline-light" onclick="logout()">Logout</button>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mt-5">
+        <section id="welcome" class="text-center">
+            <h1 class="mb-3">Welcome, {{ user.username }}!</h1>
+            <p>Participate in competitions, track your stats, and connect with other competitors.</p>
+        </section>
+
+        <div class="row">
+            <section id="active-competitions" class="col-md-6 mt-5">
+                <h2 class="mb-4">Active Competitions</h2>
+                <ul class="list-group">
+                    {% if competitions %}
+                        {% for competition in competitions[:3] %}
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h5>{{ competition.name }}</h5>
+                                    <p>{{ competition.description }}</p>
+                                    <p class="mb-0"><strong>Entry Fee:</strong> ${{ competition.fee }}</p>
+                                </div>
+                                <button class="btn btn-primary" onclick="joinCompetition('{{ competition.id }}')">Join Now</button>
+                            </li>
+                        {% endfor %}
+                    {% else %}
+                        <li class="list-group-item">No competitions available.</li>
+                    {% endif %}
+                </ul>
+                <div class="text-center mt-4">
+                    <a href="{{ url_for('competition_routes.get_all_competitions') }}" class="btn btn-secondary">View All Competitions</a>
+                </div>
+            </section>
+
+            <section id="joined-competitions" class="col-md-6 mt-5">
+                <h2 class="mb-4">Joined Competitions</h2>
+                <ul class="list-group">
+                    {% if user_competitions %}
+                        {% for competition in user_competitions[:3] %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <h5>{{ competition.name }}</h5>
+                                <p>{{ competition.description }}</p>
+                                <p class="mb-0"><strong>Entry Fee:</strong> ${{ competition.fee }}</p>
+                            </div>
+                            <div>
+                                {% if competition.creator_id == user.id %}
+                                <form action="{{ url_for('competition_routes.view_submissions', competition_id=competition.id) }}" method="GET" class="d-inline">
+                                    <button type="submit" class="btn btn-primary">Submissions</button>
+                                </form>
+                                {% endif %}
+                                <form action="{{ url_for('competition_routes.submit_project', competition_id=competition.id) }}" method="GET" class="d-inline">
+                                    <button type="submit" class="btn btn-success">Submit Project</button>
+                                </form>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    {% else %}
+                        <li class="list-group-item">You have not joined any competitions.</li>
+                    {% endif %}
+                </ul>
+            </section>
+        </div>
+
+
+        <section id="create-competition" class="mt-5">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Create a New Competition</h3>
+                </div>
+                <div class="card-body">
+                    <form method="POST" action="{{ url_for('competition_routes.create_competition') }}">
+                        <div class="form-group">
+                            <label for="name">Competition Name:</label>
+                            <input type="text" class="form-control" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Type of Competition:</label>
+                            <select class="form-control" id="description" name="description" required>
+                                <option value="coding">Coding</option>
+                                <option value="chess">Chess</option>
+                                <option value="gaming">Gaming</option>
+                                <option value="ai">AI</option>
+                                <option value="mathematics">Mathematics</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="fee">Entry Fee ($):</label>
+                            <input type="number" class="form-control" id="fee" name="fee" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="prize">Prize ($):</label>
+                            <input type="number" class="form-control" id="prizes" name="prizes" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="date">Competition Deadline:</label>
+                            <input type="date" class="form-control" id="date" name="date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="details">Competition Details:</label>
+                            <textarea class="form-control" id="details" name="details" rows="10" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="location">Location:</label>
+                            <select class="form-control" id="location" name="location" required onchange="togglePlaceInput()">
+                                <option value="online">Online</option>
+                                <option value="physical">Physical</option>
+                            </select>
+                        </div>
+                        <div class="form-group" id="place-group" style="display: none;">
+                            <label for="place">Place (Google Maps Link):</label>
+                            <input type="text" class="form-control" id="place" name="place">
+                        </div>
+                        <button type="submit" class="btn btn-success">Create Competition</button>
+                        <a href="{{ url_for('competition_routes.user_dashboard') }}" class="btn btn-secondary ml-2">View Competitions</a>
+                    </form>
+                </div>
+                <script>
+                    function togglePlaceInput() {
+                        const locationSelect = document.getElementById('location');
+                        const placeGroup = document.getElementById('place-group');
+                        if (locationSelect.value === 'physical') {
+                            placeGroup.style.display = 'block';
+                        } else {
+                            placeGroup.style.display = 'none';
+                        }
+                    }
+                </script>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-dark text-white text-center py-3 mt-5">
+        <p class="mb-0">&copy; 2024 Atomic. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        function logout() {
+            alert("Logged out successfully");
+            window.location.href = '/logout';
+        }
+
+        function joinCompetition(competitionId) {
+            alert("Joined competition with ID: " + competitionId);
+            window.location.href = '/join/' + competitionId;
+        }
+
+        document.getElementById('create-competition-form')?.addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert("Competition created successfully!");
+        });
+    </script>
+</body>
+</html>

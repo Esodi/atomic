@@ -1,0 +1,99 @@
+<!-- templates/view_winners.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Winners - {{ competition.name }}</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 30px;
+        }
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .table th {
+            background-color: #007bff;
+            color: white;
+        }
+        .table tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+        .card-header {
+            background-color: #343a40;
+            color: white;
+        }
+        .card-body {
+            background-color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="mb-0">Winners for {{ competition.name }} Competition</h2>
+            </div>
+            <div class="card-body">
+                <p>{{ competition.description }}</p>
+                <p><strong>Fee:</strong> ${{ competition.fee }}</p>
+                <p><strong>Created by:</strong> {{ competition.creator_id }}</p>
+
+                {% if winners %}
+                    <div class="table-responsive">
+                        <table class="table table-hover table-striped">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>Winner Username</th>
+                                    <th>Email</th>
+                                    <th>Project Description</th>
+                                    <th>Submission Date</th>
+                                    <th>Download Project</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for user_competition in winners %}
+                                    <tr>
+                                        <td>{{ user_competition.user.username }}</td>
+                                        <td>{{ user_competition.user.email }}</td>
+                                        <td>{{ user_competition.project_description }}</td>
+                                        <td>{{ user_competition.submission_date.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                                        <td>
+                                            <a class="btn btn-primary btn-sm" href="{{ url_for('competition_routes.download_submission', submission_id=user_competition.id) }}">
+                                                Download
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <div class="alert alert-info" role="alert">
+                        No winners have been selected for this competition yet.
+                    </div>
+                {% endif %}
+
+                <a href="{{ url_for('competition_routes.user_dashboard') }}" class="btn btn-secondary mt-3">Back to Dashboard</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Submissions - {{ competition.name }}</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">Submissions for {{ competition.name }} Competition</h1>
+        <div class="text-right">
+            <form action="{{ url_for('competition_routes.submit_winners', competition_id=competition.id) }}" method="POST" class="d-inline">
+            <button type="submit" class="btn btn-success">Submit Winners</button>
+            </form>
+            <form action="{{ url_for('competition_routes.view_winners', competition_id=competition.id) }}" method="GET" class="d-inline">
+            <button type="submit" class="btn btn-secondary">View Winners</button>
+            </form>
+        </div>
+        {% if submissions %}
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Participant</th>
+                        <th>Submission Date</th>
+                        <th>Project Description</th>
+                        <th>File</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for submission in submissions %}
+                    <tr>
+                        <td>{{ submission.user.username }}</td>
+                        <td>{{ submission.submission_date.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                        <td>{{ submission.project_description }}</td>
+                        <td>
+                            <a href="{{ url_for('competition_routes.download_submission', submission_id=submission.id) }}" 
+                               class="btn btn-primary btn-sm">
+                                Download {{ submission.project_file_name }}
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No submissions yet.</p>
+        {% endif %}
+        
+        <a href="{{ url_for('competition_routes.user_dashboard') }}" class="btn btn-secondary">Back to Dashboard</a>
+        <form action="{{ url_for('competition_routes.leave_competition', competition_id=competition.id) }}" method="POST" class="d-inline">
+            <button type="submit" class="btn btn-danger">Leave Competition</button>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

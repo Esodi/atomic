@@ -1,0 +1,8 @@
+CREATE DATABASE IF NOT EXISTS atx;
+
+CREATE USER 'admin'@'localhost' IDENTIFIED BY 'admin123';
+
+GRANT ALL PRIVILEGES ON atx.* TO 'admin'@'localhost';
+
+FLUSH PRIVILEGES;
+
